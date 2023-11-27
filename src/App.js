@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Dashboard from "./Components/Dashboard";
+import Home from "./Components/Home";
+import Employee from "./Components/Employee";
+import Category from "./Components/Category";
+import Profile from "./Components/Profile";
+import AddCategory from "./Components/AddCategory";
+import AddEmployee from "./Components/AddEmployee";
+import EditEmployee from "./Components/EditEmployee";
+import Start from "./Components/Start";
+import EmployeeLogin from "./Components/EmployeeLogin";
+import EmployeeDetail from "./Components/EmployeeDetail";
+import PrivateRoute from "./Components/PrivateRoute";
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
+import EditCategory from "./Components/EditDepartmentModal";
+import EmployeeByDepartment from "./Components/EmployeeByDepartment";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Start />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/adminlogin" element={<Login />}></Route>
+        <Route path="/employee_login" element={<EmployeeLogin />}></Route>
+        <Route path="/employee_detail/:id" element={<EmployeeDetail />}></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route path="" element={<Home />}></Route>
+          <Route path="/dashboard/employee" element={<Employee />}></Route>
+          <Route path="/dashboard/departments" element={<Category />}></Route>
+          <Route path="/dashboard/employee/:id" element={<Profile />}></Route>
+          <Route path="/dashboard/departments/:id" element={<EmployeeByDepartment />}></Route>
+          <Route
+            path="/dashboard/add_category"
+            element={<AddCategory />}
+          ></Route>
+          <Route
+            path="/dashboard/add_employee"
+            element={<AddEmployee />}
+          ></Route>
+          <Route
+            path="/dashboard/edit_employee/:id"
+            element={<EditEmployee />}
+          ></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
